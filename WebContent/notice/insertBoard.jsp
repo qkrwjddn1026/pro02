@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, java.util.*, kr.co.myshop.vo.*"%>
@@ -5,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 목록</title>
+<title>공지사항 등록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -18,37 +19,31 @@
 <%
 	Notice vo = (Notice) request.getAttribute("notice");
 %>
-<div class="content container">
-	<h2 class="title">공지사항 목록</h2>
+<div class="content container" id="content">
+	<h2 class="title">공지사항 등록</h2>
+	<form name="frm1" id="frm1" action="../InsertBoardProCtrl" method="post">
 	<table class="table">
 		<tbody>
 			<tr>
-				<th>번호</th>
-				<td><%=vo.getNotiNo() %></td>
-			</tr>
-			<tr>
 				<th>제목</th>
-				<td><%=vo.getTitle() %></td>
+				<td><input type="text" name="title" id="title" placeholder="제목"  class="form-control" autofocus required></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><%=vo.getContent() %></td>
+				<td><textarea cols="80" rows="6" name="content" id="content"  class="form-control" required></textarea></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><%=vo.getAuthor() %></td>
-			</tr>
-			<tr>
-				<th>작성일시</th>
-				<td><%=vo.getResDate() %></td>
+				<td><input type="text" name="author" id="author" value="admin"  class="form-control" readonly></td>
 			</tr>
 		</tbody>
 	</table>
 	<div class="btn-group">
-		<a href="GetBoardListCtrl" class="btn btn-danger">목록으로</a>
-		<a href="DeleteBoardCtrl?notiNo=<%=vo.getNotiNo() %>" class="btn btn-primary">글 삭제</a>
-		<a href="UpdateBoardCtrl?notiNo=<%=vo.getNotiNo() %>" class="btn btn-danger">글 수정</a>
+		<input type="submit" name="submit-btn" class="btn btn-info" value="글 등록">
+		<input type="reset" name="reset-btn" class="btn btn-info" value="글 취소">
+		<a href="../GetBoardListCtrl" class="btn btn-danger">목록으로</a>
 	</div>
+</form>	
 </div>
 </body>
 </html>
