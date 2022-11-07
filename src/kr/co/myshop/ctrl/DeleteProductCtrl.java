@@ -1,75 +1,55 @@
 package kr.co.myshop.ctrl;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.crypto.util.SHA256;
+import kr.co.myshop.vo.Notice;
 
-@WebServlet("/CustomLoginCtrl")
-public class CustomLoginCtrl extends HttpServlet {
+@WebServlet("/DeleteProductCtrl")
+public class DeleteProductCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private final static String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
 	private final static String USER = "root";
 	private final static String PASS = "a1234";
-	String sql = "";
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String cusId = request.getParameter("cusId");
-		String cus = request.getParameter("cusPw");
-		String cusPw = "";
-		try {
-			cusPw = SHA256.encrypt(cus);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
+		int proNo = Integer.parseInt(request.getParameter("proNo"));
+		String sql = "";
+		int cnt = 0;
 		try {
 			//데이터베이스 연결
 			Class.forName(DRIVER);
-			sql = "select * from custom where cusid=? and cuspw=?";
+			sql = "delete from product where prono=?";
 			Connection con = DriverManager.getConnection(URL, USER, PASS);
-			
-			con.setAutoCommit(false);
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = null;
-			pstmt.setString(1, cusId);
-			pstmt.setString(2, cusPw);
-			rs = pstmt.executeQuery();
-			HttpSession session = request.getSession();
+			pstmt.setInt(1, proNo);
+			cnt = pstmt.executeUpdate();
 			
-			if(rs.next()){
-				//세션을 발생시키고, 인덱스로 이동
-				sql="update custom set visited=visited+1, point=point+5 where cusId=?";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, cusId);
-				pstmt.executeUpdate();
-				con.commit();
-				con.setAutoCommit(true);
-				session.setAttribute("sid", cusId);
-				session.setAttribute("sname", rs.getString("cusname"));
-				response.sendRedirect("index.jsp");
+			if(cnt>=1){
+				response.sendRedirect("GetProductListCtrl");
 			} else {
-				//로그인 페이지로 이동
-				response.sendRedirect("./custom/login.jsp");
+				response.sendRedirect("GetProductDetailCtrl?proNo="+proNo);
 			}
 
 			pstmt.close();
 			con.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}	
+		
 	}
 }

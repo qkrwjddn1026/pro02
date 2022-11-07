@@ -20,8 +20,8 @@
 		<div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
 			<h6>BANK ACCOUNT</h6>
 			<h5>070-1866-9604</h5>
-			<p><strong>하나 128452-02-564587</strong><br>
-			예금주 : 김기태(먼슬핏)
+			<p><strong>하나 12345-67-891011</strong><br>
+			예금주 : 박정우(농심몰)
 			</p>
 		</div>
 		<div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">

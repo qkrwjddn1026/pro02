@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 목록</title>
+<link rel="stylesheet" href="common.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -41,6 +42,10 @@
 			<tr>
 				<th>작성일시</th>
 				<td><%=vo.getResDate() %></td>
+			</tr>
+			<tr>
+				<th>조회수</th>
+				<td><%=vo.getVisited() %></td>
 			</tr>
 		</tbody>
 	</table>

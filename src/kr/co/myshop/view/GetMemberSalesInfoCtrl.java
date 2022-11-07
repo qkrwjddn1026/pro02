@@ -14,11 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.myshop.vo.Notice;
+import kr.co.myshop.vo.Sales;
 
-@WebServlet("/GetBoardDetailCtrl")
-public class GetBoardDetailCtrl extends HttpServlet {
+@WebServlet("/GetMemberSalesInfoCtrl")
+public class GetMemberSalesInfoCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private final static String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
@@ -27,39 +29,35 @@ public class GetBoardDetailCtrl extends HttpServlet {
 	String sql = "";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int notiNo = Integer.parseInt(request.getParameter("notiNo"));
+		HttpSession session = request.getSession();
 		try {
+			String sid = (String) session.getAttribute("sid");
+			
 			//데이터베이스 연결
 			Class.forName(DRIVER);
-			sql = "select * from notice where notino=?";
 			Connection con = DriverManager.getConnection(URL, USER, PASS);
-			
-			
-			con.setAutoCommit(false);	// 트랜잭션 처리시에는 같이 처리될 수 있도록 오토커밋을 꺼야함
+			sql = "select * from sales where cusid=? order by saleno desc";
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, notiNo);
+			pstmt.setString(1, sid);
 			ResultSet rs = pstmt.executeQuery();
 			
-			//결과를 데이터베이스로 부터 받아서 VO에 저장
-			Notice vo = new Notice();
-			if(rs.next()){
-				sql="update notice set visited=visited+1 where notino=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, notiNo);
-				pstmt.executeUpdate();
-				con.commit();		// 지금까지 진행했던 내용들이 모두 같이 성공수행될 수 있도록 수동커밋을 함
-				con.setAutoCommit(true);	// 다음 sql 실행 구문을 위해 다시 오토커밋을 켜놓음
-				vo.setNotiNo(rs.getInt("notino"));
-				vo.setTitle(rs.getString("title"));
-				vo.setContent(rs.getString("content"));
-				vo.setAuthor(rs.getString("author"));
-				vo.setResDate(rs.getString("resdate"));
-				vo.setVisited(rs.getInt("visited"));
+			//결과를 데이터베이스로 부터 받아서 리스트로 저장
+			List<Sales> saleList = new ArrayList<Sales>();
+			while(rs.next()){
+				Sales vo = new Sales();
+				vo.setSaleNo(rs.getInt("saleno"));
+				vo.setCusId(rs.getString("cusId"));
+				vo.setProNo(rs.getString("prono"));
+				vo.setAmount(rs.getInt("amount"));
+				vo.setSaleDate(rs.getString("saledate"));
+				vo.setParselNo(rs.getInt("parselno"));
+				vo.setSalePayNo(rs.getInt("salepayno"));
+				saleList.add(vo);
 			}
-			request.setAttribute("notice", vo);
+			request.setAttribute("saleList", saleList);
 			
-			//notice/boardList.jsp 에 포워딩
-			RequestDispatcher view = request.getRequestDispatcher("./notice/boardDetail.jsp");
+			///sales/saleList.jsp 에 포워딩
+			RequestDispatcher view = request.getRequestDispatcher("./sales/saleList.jsp");
 			view.forward(request, response);
 			
 			rs.close();
@@ -69,5 +67,4 @@ public class GetBoardDetailCtrl extends HttpServlet {
 			e.printStackTrace();
 		}	
 	}
-
 }

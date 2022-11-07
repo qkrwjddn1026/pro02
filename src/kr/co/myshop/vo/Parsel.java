@@ -1,12 +1,12 @@
 package kr.co.myshop.vo;
-
+//배송 클래스
 public class Parsel {
-	private int parselNo;		//배송코드
-	private String parselAddr;	//배송지
-	private String cusTel;
-	private String parselConpany;	//배송회사
-	private String parselTel;
-	private int parselState;	//배송상태
+	private int parselNo;	//(auto)배송코드
+	private String parselAddr;	//+배송지
+	private String cusTel;		//+고객연락처
+	private String parselCompany; //(admin)배송회사
+	private String parselTel;	//(admin)배송기사연락처
+	private int parselState;	//(0:배송전,1:배송중,2:도착,3:구매결정)-배송상태
 	public int getParselNo() {
 		return parselNo;
 	}
@@ -25,11 +25,11 @@ public class Parsel {
 	public void setCusTel(String cusTel) {
 		this.cusTel = cusTel;
 	}
-	public String getParselConpany() {
-		return parselConpany;
+	public String getParselCompany() {
+		return parselCompany;
 	}
-	public void setParselConpany(String parselConpany) {
-		this.parselConpany = parselConpany;
+	public void setParselCompany(String parselCompany) {
+		this.parselCompany = parselCompany;
 	}
 	public String getParselTel() {
 		return parselTel;
@@ -43,5 +43,4 @@ public class Parsel {
 	public void setParselState(int parselState) {
 		this.parselState = parselState;
 	}
-	
 }

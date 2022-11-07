@@ -24,14 +24,11 @@
 	          Product
 	        </a>
 	        <div class="dropdown-menu">
-	          <a class="dropdown-item" href="#">SNACK</a>
-	          <a class="dropdown-item" href="#"></a>
+	          <a class="dropdown-item" href="GetProductItemListCtrl?cateNo=1">라면</a>
+	          <a class="dropdown-item" href="GetProductItemListCtrl?cateNo=2">스낵</a>
 	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#"></a>
-	          <a class="dropdown-item" href="#"></a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#"></a>
-	          <a class="dropdown-item" href="#"></a>
+	          <a class="dropdown-item" href="GetProductItemListCtrl?cateNo=3">간편식</a>
+	          <a class="dropdown-item" href="GetProductItemListCtrl?cateNo=4">음료</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
