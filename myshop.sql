@@ -23,3 +23,69 @@ insert into notice(title, content, author) values("테스트 제목5","테스트
 commit;
 
 select * from notice order by notiNo desc;
+
+select * from custom;
+
+create table category(
+	cateNo int primary key auto_increment,
+	cateName varchar(50)
+);
+
+insert into category(cateName) values ("스낵");
+insert into category(cateName) values ("라면");
+insert into category(cateName) values ("간편식");
+insert into category(cateName) values ("음료");
+
+alter table notice add visited int default 0;
+
+create table wearing(
+	proNo int primary key,
+    amount int);
+    
+    
+create table product(
+	proNo int primary key auto_increment,
+	cateNo int not null,
+	proName varchar(40) not null,
+	proSpec varchar(500),
+	oriPrice int not null,
+	discountRate double not null,
+	proPic varchar(200),
+	proPic2 varchar(200)
+);
+
+commit;
+
+select * from product;
+select * from wearing;
+create table sales(
+	saleNo int primary key auto_increment,
+    cusId varchar(13) not null,
+    proNo int not null,
+    amount int not null,
+    saleDate datetime default now(),
+    parselNo int,
+    salePayNo int
+);
+
+desc sales;
+select * from sales;
+
+create table payment(
+	salePayNo int primary key auto_increment,
+    payMethod varchar(20),
+    payCom varchar(50),
+    cardNum varchar(40),
+    payAmount int
+);
+
+create table parsel(
+	parselNo int primary key auto_increment,
+    parselAddr varchar(500),
+    cusTel varchar(14),
+    parselCompany varchar(50),
+    parselTel varchar(14),
+    parselState int default 0
+);  
+
+commit;
