@@ -25,24 +25,11 @@
 * Bootstrap
 
 ## :clipboard: 주요 키워드
-* REST API
-* Cache
-* HTTP 통신
-* JPA
-* 페이징
-* 트랜잭션
 * 예외처리
 * Git 버전관리
+* 트랜잭션 처리
 
+## 프로젝트 설계
 
-## :clipboard: 성능 테스팅 도구
-* Apache JMeter
-
-## :clipboard: 도메인 모델 분석
-* [shopping mall - Domain](https://github.com/CokeLee777/springboot-shoppingmall/issues/1#issuecomment-1007228702)
-
-## :clipboard: Entity 정의서
-* [shopping mall - Entity Details](https://github.com/CokeLee777/springboot-shoppingmall/issues/2#issuecomment-1007239378)
-
-## :clipboard: ERD 설계 명세서
-* [shopping mall - ERD](https://github.com/CokeLee777/springboot-shoppingmall/issues/2#issuecomment-999452751)
+### 백엔드 구현 로직(MVC1)
+![mvc](./file/mvc1.PNG "mvc1")
