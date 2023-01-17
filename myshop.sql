@@ -58,6 +58,7 @@ commit;
 
 select * from product;
 select * from wearing;
+desc sales;
 create table sales(
 	saleNo int primary key auto_increment,
     cusId varchar(13) not null,
@@ -79,13 +80,8 @@ create table payment(
     payAmount int
 );
 
-create table parsel(
-	parselNo int primary key auto_increment,
-    parselAddr varchar(500),
-    cusTel varchar(14),
-    parselCompany varchar(50),
-    parselTel varchar(14),
-    parselState int default 0
-);  
+desc qnaa;
 
 commit;
+
+desc cart;
