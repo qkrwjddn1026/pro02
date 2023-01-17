@@ -32,4 +32,6 @@
 ## 프로젝트 설계
 
 ### 백엔드 구현 로직(MVC1)
-![mvc](./file/mvc1.PNG "mvc1")
+![mvc](./file/mvc1.png "mvc1")
+
+### 
